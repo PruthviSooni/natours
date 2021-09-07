@@ -5,12 +5,11 @@ const tourController = require('../controller/tours.controller')
 router.use(express.json())
 
 /// Custom Middleware to check ID
-router.param('id', tourController.checkId);
 router
     //GET
     .get('/getAllTours', tourController.getAllTours)
     //POST
-    .post('/addTour', tourController.checkBody, tourController.addTour)
+    .post('/addTour', tourController.createTour)
 router.route('/:id')
     //GET
     .get(tourController.getSingleTour)
