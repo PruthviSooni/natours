@@ -1,5 +1,5 @@
-const fs = require("fs");
-const Tour = require("../models/tours.model");
+const fs = require('fs');
+const Tour = require('../models/tours.model');
 
 /* eslint-disable */
 const tour5 = {
@@ -26,10 +26,13 @@ const _tours = [];
 const importData = async () => {
   try {
     // console.log(tours);
-    for(var i = 0; i < tours.length; i++){
-     delete tours[i].id
+    for (var i = 0; i < tours.length; i++) {
+      delete tours[i].id
+      var isoDateString = new Date().toISOString();
+      tours[i].createdAt = isoDateString
     }
-    fs.writeFileSync(`${__dirname}/newTours.json`,JSON.stringify(tours),'utf-8')
+    fs.writeFileSync(`${__dirname}/newTours.json`, JSON.stringify(tours), 'utf-8')
+
     console.log("Data Imported..");
     process.exit();
   } catch (error) {
@@ -41,9 +44,9 @@ const clearDB = async () => {
   try {
     await Tour.deleteMany().then((_) => console.log("DB is cleared."));
     console.log("Clearing DB..");
-    
+
     process.exit();
-  } catch (error) {}
+  } catch (error) { }
 };
 
 if (process.argv[2] === "--import") {

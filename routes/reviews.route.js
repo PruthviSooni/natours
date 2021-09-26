@@ -1,6 +1,7 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
 
-router.use(express.json())
-router.get('/getReviews')
-module.exports = router
+const router = express.Router();
+
+router.use(express.json());
+router.get('/getReviews');
+module.exports = router;
