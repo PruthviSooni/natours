@@ -1,7 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
-const tourController = require('../controller/tours.controller.js');
+const tourController = require('../controller/tours.controller');
 
 router.use(express.json());
 

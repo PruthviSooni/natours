@@ -3,6 +3,7 @@ class ApiFeatures {
     this.query = query;
     this.reqQuery = queryString;
   }
+
   // Filtering below query from query request.
    filter() {
      const queryObj = {...this.reqQuery};
