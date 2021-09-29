@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "set NODE_ENV=production&& nodemon server.js",
-    "lint": "eslint ./"
+    "lint": "eslint ./",
+    "debug": "ndb server.js"
   },
   "author": "Pruthvi Soni",
   "license": "ISC",
@@ -15,6 +16,7 @@
     "express": "^4.17.1",
     "mongoose": "^5.13.8",
     "morgan": "^1.10.0",
+    "ndb": "^1.1.5",
     "nodemon": "^2.0.12",
     "slugify": "^1.6.0"
   },
