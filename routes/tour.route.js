@@ -13,19 +13,18 @@ router
   .post('/addTour', tourController.createTour);
 
 /// GET Top 5 Tours middle ware
-
-router.route('/top-five-tours')
+router
+  .route('/top-five-tours')
   .get(tourController.getTopTours, tourController.getAllTours);
 
 /// GET Tours stats
-router.route('/tour-stats')
-  .get(tourController.getToursStats);
+router.route('/tour-stats').get(tourController.getToursStats);
 
 /// GET Monthly Plan
-router.route('/monthly-plan/:year')
-  .get(tourController.getMonthlyPlan);
+router.route('/monthly-plan/:year').get(tourController.getMonthlyPlan);
 
-router.route('/:id')
+router
+  .route('/:id')
   // GET
   .get(tourController.getSingleTour)
   // PATCH

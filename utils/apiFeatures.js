@@ -5,8 +5,8 @@ class ApiFeatures {
   }
 
   // Filtering below query from query request.
-   filter() {
-     const queryObj = {...this.reqQuery};
+  filter() {
+    const queryObj = { ...this.reqQuery };
     const excludedFields = ['page', 'sort', 'limit', 'fields'];
     excludedFields.forEach((el) => delete queryObj[el]);
     //Advanced query filtering

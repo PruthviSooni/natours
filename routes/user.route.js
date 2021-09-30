@@ -6,7 +6,7 @@ const userController = require('../controller/user.controller');
 router.use(express.json());
 
 router
-/// GET ALL USERS
+  // GET ALL USERS
   .get('/', userController.getAllUsers);
 
 module.exports = router;

@@ -50,7 +50,10 @@ exports.createTour = catchAsync(async (req, res, next) => {
 
 // UPDATE Tour
 exports.updateTour = catchAsync(async (req, res, next) => {
-    const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+    const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
+    });
     if (!tour) {
         return next(new AppError('Tour Not found on given id!', 404));
     }
@@ -62,7 +65,7 @@ exports.updateTour = catchAsync(async (req, res, next) => {
 
 // DELETE Tour
 exports.deleteTour = catchAsync(async (req, res, next) => {
-   const tour = await Tour.findByIdAndDelete(req.params.id);
+    const tour = await Tour.findByIdAndDelete(req.params.id);
     if (!tour) {
         return next(new AppError('Tour Not found on given id!', 404));
     }
@@ -77,8 +80,8 @@ exports.getToursStats = catchAsync(async (req, res, next) => {
     const stats = await Tour.aggregate([
         {
             $match: {
-                ratingsAverage: { $gte: 4.5 }
-            }
+                ratingsAverage: { $gte: 4.5 },
+            },
         },
         {
             $group: {
@@ -93,40 +96,29 @@ exports.getToursStats = catchAsync(async (req, res, next) => {
         },
         //SORT
         {
-            $sort:
-                { totalRatings: 1 }
-        }
+            $sort: { totalRatings: 1 },
+        },
     ]);
     res.status(200).json({
         status: true,
         data: {
             stats,
-        }
+        },
     });
 });
 
 exports.getMonthlyPlan = catchAsync(async (req, res, next) => {
-    const year = req.params.year * 1;
-    console.log(new Date(`${year}-01-01`));
+    //   const year = req.params.year * 1;
 
     const plan = await Tour.aggregate([
         {
-            $unwind: '$startDates'
+            $unwind: '$startDates',
         },
-
     ]);
-
-    res.status(200).json({
-        status: 'success',
-        data: {
-            plan
-        }
-    });
-
     res.status(200).json({
         status: true,
         data: {
             plan,
-        }
+        },
     });
 });

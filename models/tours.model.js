@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
+
 const toursSchema = new mongoose.Schema(
   {
     name: {
@@ -35,6 +36,8 @@ const toursSchema = new mongoose.Schema(
     ratingsAverage: {
       type: Number,
       default: 0.0,
+      max: [5, 'Rating should be given in between 1-5'],
+      min: [0, 'Rating should be given in between 1-5']
     },
     ratingQuantity: {
       type: Number,
@@ -71,22 +74,23 @@ const toursSchema = new mongoose.Schema(
 );
 
 toursSchema.pre('save', function (next) {
-  this.slug = slugify(this.name, { lower: true, trim: true })
+  this.slug = slugify(this.name, { lower: true, trim: true });
   next();
-})
+});
+
 toursSchema.pre('aggregate', function (next) {
-  this.pipeline()
-  console.log(this.pipeline())
+  this.pipeline();
+  console.log(this.pipeline());
   next();
-})
+});
 
 toursSchema.virtual('durationToWeek').get(function () {
   return this.duration / 7;
-})
+});
 
 toursSchema.pre(/^find/, function (next) {
-  this.find({ secretTour: { $ne: true } })
+  this.find({ secretTour: { $ne: true } });
   next();
-})
+});
 
 module.exports = mongoose.model('Tours', toursSchema);
