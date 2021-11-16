@@ -11,11 +11,13 @@ const sendErrorDev = (err, res) => {
 const sendErrorProd = (err, res) => {
     //Operational Error
     if (err.isOperational) {
+        console.log(`Error 🔥 ${err}`)
         res.status(err.statusCode).json({
             status: err.status,
             message: err.message,
         });
     } else {
+        console.log(`Error 🔥 ${err}`)
         // Programming of Fatal Error
         res.status(500).json({
             status: false,
@@ -38,6 +40,8 @@ const handleValidationErrorDB = (err) => {
     const message = `Invalid input data : ${errorMessages.join('. ')}`;
     return new AppError(message, 400);
 };
+const handleTokenError = () => new AppError("Invalid token. Please login again", 401);
+const handleTokenExpireError = () => new AppError("Token expired. Please login again", 401);
 
 // Global Error handler this will catch all of the express errors
 module.exports = (err, req, res, next) => {
@@ -54,6 +58,11 @@ module.exports = (err, req, res, next) => {
         // Checking Validation errors
         if (error.name === 'ValidationError')
             error = handleValidationErrorDB(error);
+        if (error.name === 'JsonWebTokenError')
+            error = handleTokenError();
+        if (error.name === 'TokenExpiredError')
+            error = handleTokenExpireError();
+
         sendErrorProd(error, res);
     }
 };
