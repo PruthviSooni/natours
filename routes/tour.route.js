@@ -31,5 +31,5 @@ router
   // PATCH
   .patch(tourController.updateTour)
   // DELETE
-  .delete(tourController.deleteTour);
+  .delete(authController.protect, authController.restrictTo('admin'), tourController.deleteTour);
 module.exports = router;
